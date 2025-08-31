@@ -72,7 +72,7 @@ function DashboardSidebarContent() {
       >
         <SidebarContent>
           <div
-            className={`flex items-center justify-center px-4 py-6 relative ${
+            className={`flex items-center justify-center px-2 py-6 relative ${
               isCollapsed ? "px-2" : "gap-2"
             }`}
           >
@@ -82,7 +82,7 @@ function DashboardSidebarContent() {
                 alt="logo"
                 width={isCollapsed ? 40 : 140}
                 height={isCollapsed ? 40 : 140}
-                className={isCollapsed ? "hidden" : "h-7 w-24"}
+                className={isCollapsed ? "hidden" : "h-7 w-18"}
               />
             </Link>
             {/* Collapse button for desktop */}
@@ -97,7 +97,7 @@ function DashboardSidebarContent() {
 
           <SidebarMenu
             className={
-              isCollapsed ? "px-2 space-y-2 items-center" : "px-6 space-y-6"
+              isCollapsed ? "px-2 space-y-2 items-center" : "px-6 space-y-1"
             }
           >
             <NavItem
@@ -222,18 +222,14 @@ function NavItem({
           className={cn(
             collapsed
               ? "flex items-center justify-center px-2 py-3 transition-colors rounded-full w-12 h-12 mx-auto"
-              : "flex items-center gap-3 px-4 !py-5 transition-colors rounded-full",
+              : "flex items-center gap-3 px-4 py-3 transition-colors rounded-md",
             active
-              ? "bg-gradient-to-br from-blue-600 via-blue-500 to-teal-400 text-white"
-              : "hover:bg-gradient-to-br hover:from-blue-600 hover:via-blue-500 hover:to-teal-400 hover:text-white"
+              ? "bg-black text-white hover:!bg-black hover:!text-white"
+              : "bg-transparent text-black hover:!bg-black/60 hover:!text-white"
           )}
         >
           <Icon size={collapsed ? 20 : 18} />
-          {!collapsed && (
-            <span className={`text-lg ${active ? "text-secondary" : ""}`}>
-              {label}
-            </span>
-          )}
+          {!collapsed && <span className="text-base">{label}</span>}
         </Link>
       </SidebarMenuButton>
     </SidebarMenuItem>
