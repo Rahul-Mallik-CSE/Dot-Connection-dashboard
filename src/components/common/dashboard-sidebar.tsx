@@ -6,10 +6,11 @@ import type React from "react";
 
 import Link from "next/link";
 import {
-  LayoutDashboard,
   Users,
-  Settings,
-  StrikethroughIcon,
+  LayoutGrid,
+  Crown,
+  CircleDollarSign,
+  CircleUser,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
@@ -101,7 +102,7 @@ function DashboardSidebarContent() {
           >
             <NavItem
               href="/"
-              icon={LayoutDashboard}
+              icon={LayoutGrid}
               label="Overview"
               active={pathname === "/"}
               collapsed={isCollapsed}
@@ -116,7 +117,7 @@ function DashboardSidebarContent() {
 
             <NavItem
               href="/package"
-              icon={StrikethroughIcon}
+              icon={Crown}
               label="Package"
               active={
                 pathname === "/package" || pathname.startsWith("/package")
@@ -125,7 +126,7 @@ function DashboardSidebarContent() {
             />
             <NavItem
               href="/payment"
-              icon={StrikethroughIcon}
+              icon={CircleDollarSign}
               label="Payment"
               active={
                 pathname === "/payment" || pathname.startsWith("/payment")
@@ -139,7 +140,7 @@ function DashboardSidebarContent() {
           <SidebarFooter className="p-6">
             <NavItem
               href="/profile"
-              icon={Settings}
+              icon={CircleUser}
               label="Profile"
               active={
                 pathname === "/profile" || pathname.startsWith("/profile/")
