@@ -1,12 +1,137 @@
 /** @format */
 
 import React from "react";
+import CustomCard from "@/components/common/custom-card";
+import CustomTable from "@/components/common/custom-table";
+import {
+  Users,
+  CreditCard,
+  DollarSign,
+  UserRoundX,
+  ShieldUser,
+} from "lucide-react";
+
+const cardData = [
+  {
+    title: "Total User",
+    value: "25,256",
+    icon: Users,
+  },
+  {
+    title: "Free Users",
+    value: "456",
+    icon: UserRoundX,
+  },
+  {
+    title: "Paid Users",
+    value: "5,256",
+    icon: ShieldUser,
+  },
+  {
+    title: "Income",
+    value: "75,256",
+    dollar: DollarSign,
+    icon: CreditCard,
+  },
+];
+
+// Table configuration and data
+const userTableColumns = [
+  { key: "id", header: "ID" },
+  { key: "name", header: "Name" },
+  { key: "userType", header: "User Type" },
+  { key: "email", header: "Email" },
+  { key: "status", header: "Status" },
+  { key: "action", header: "Action" },
+];
+
+const userTableData = [
+  {
+    id: "S5W4",
+    name: { name: "Kristin Watson", avatar: "/api/placeholder/32/32" },
+    userType: "Free",
+    email: "deanna.curtis@example.com",
+    status: "Inactive",
+    action: "view",
+  },
+  {
+    id: "F41H",
+    name: { name: "Marvin McKinney", avatar: "/api/placeholder/32/32" },
+    userType: "Paid",
+    email: "michelle.rivera@example.com",
+    status: "Active",
+    action: "view",
+  },
+  {
+    id: "GR41",
+    name: { name: "Eleanor Pena", avatar: "/api/placeholder/32/32" },
+    userType: "Free",
+    email: "felicia.reid@example.com",
+    status: "Inactive",
+    action: "view",
+  },
+  {
+    id: "F41H",
+    name: { name: "Marvin McKinney", avatar: "/api/placeholder/32/32" },
+    userType: "Paid",
+    email: "curtis.weaver@example.com",
+    status: "Active",
+    action: "view",
+  },
+  {
+    id: "S5W4",
+    name: { name: "Kristin Watson", avatar: "/api/placeholder/32/32" },
+    userType: "Paid",
+    email: "michael.mitc@example.com",
+    status: "Inactive",
+    action: "view",
+  },
+  {
+    id: "F41H",
+    name: { name: "Eleanor Pena", avatar: "/api/placeholder/32/32" },
+    userType: "Free",
+    email: "willie.jennings@example.com",
+    status: "Active",
+    action: "view",
+  },
+  {
+    id: "GR41",
+    name: { name: "Marvin McKinney", avatar: "/api/placeholder/32/32" },
+    userType: "Paid",
+    email: "deanna.curtis@example.com",
+    status: "Active",
+    action: "view",
+  },
+];
 
 const OverView = () => {
   return (
-    <div>
-      <h1>Overview</h1>
-      <p>This is the overview page.</p>
+    <div className="p-6 space-y-8">
+      <h1 className="text-2xl font-bold text-gray-900 mb-6">Overview</h1>
+
+      {/* Cards Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+        {cardData.map((card, index) => (
+          <CustomCard
+            key={index}
+            title={card.title}
+            value={card.value}
+            icon={card.icon}
+            dollar={card.dollar}
+            className="hover:shadow-md transition-shadow"
+          />
+        ))}
+      </div>
+
+      {/* User Table */}
+      <CustomTable
+        title="User List"
+        columns={userTableColumns}
+        data={userTableData}
+        searchable={true}
+        filterable={true}
+        className="mt-8"
+      />
     </div>
   );
 };

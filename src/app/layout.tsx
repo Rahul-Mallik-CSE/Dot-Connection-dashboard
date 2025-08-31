@@ -36,7 +36,7 @@ export default function RootLayout({
         <SidebarProvider>
           <DashboardSidebar />
           <SidebarInset>
-            <div className="flex-1 w-full bg-background2 p-4 md:p-6">
+            <div className="flex-1 w-full bg-gray-100 p-2 md:p-4 ">
               {children}
             </div>
           </SidebarInset>
