@@ -102,7 +102,7 @@ function DashboardSidebarContent() {
             <NavItem
               href="/"
               icon={LayoutDashboard}
-              label="Dashboard"
+              label="Overview"
               active={pathname === "/"}
               collapsed={isCollapsed}
             />
@@ -115,32 +115,20 @@ function DashboardSidebarContent() {
             />
 
             <NavItem
-              href="/skinCondition"
+              href="/package"
               icon={StrikethroughIcon}
-              label="Skin Condition"
+              label="Package"
               active={
-                pathname === "/skinCondition" ||
-                pathname.startsWith("/skinCondition")
+                pathname === "/package" || pathname.startsWith("/package")
               }
               collapsed={isCollapsed}
             />
             <NavItem
-              href="/uploadProduct"
+              href="/payment"
               icon={StrikethroughIcon}
-              label="Upload Product"
+              label="Payment"
               active={
-                pathname === "/uploadProduct" ||
-                pathname.startsWith("/uploadProduct")
-              }
-              collapsed={isCollapsed}
-            />
-
-            <NavItem
-              href="/setting"
-              icon={Settings}
-              label="Setting"
-              active={
-                pathname === "/setting" || pathname.startsWith("/setting/")
+                pathname === "/payment" || pathname.startsWith("/payment")
               }
               collapsed={isCollapsed}
             />
@@ -149,6 +137,15 @@ function DashboardSidebarContent() {
 
         {!isCollapsed && (
           <SidebarFooter className="p-6">
+            <NavItem
+              href="/profile"
+              icon={Settings}
+              label="Profile"
+              active={
+                pathname === "/profile" || pathname.startsWith("/profile/")
+              }
+              collapsed={isCollapsed}
+            />
             <button
               onClick={() => setIsLogoutModalOpen(true)}
               className="flex w-full items-center gap-3  px-4 py-3"
