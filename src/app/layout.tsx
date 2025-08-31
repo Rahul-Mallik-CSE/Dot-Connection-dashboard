@@ -5,6 +5,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import { SidebarProvider } from "@/components/ui/sidebar";
+import DashboardSidebar from "@/components/common/dashboard-sidebar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,10 +36,7 @@ export default function RootLayout({
         <SidebarProvider>
           <div className="flex min-h-screen bg-background2 w-full">
             <DashboardSidebar />
-            <div className="flex-1 w-full bg-background2">
-              <DashboardHeader />
-              {children}
-            </div>
+            <div className="flex-1 w-full bg-background2">{children}</div>
           </div>
         </SidebarProvider>
       </body>
