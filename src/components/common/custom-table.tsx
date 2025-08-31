@@ -170,12 +170,12 @@ const CustomTable: React.FC<CustomTableProps> = ({
       <div className="overflow-x-auto">
         <Table>
           <TableHeader>
-            <TableRow className="bg-gray-50">
+            <TableRow className="bg-transparent">
               {columns.map((column) => (
                 <TableHead
                   key={column.key}
                   className={cn(
-                    "font-semibold text-gray-700 py-4 px-6",
+                    "font-semibold text-gray-700 py-2 px-6 bg-gray-50 gap-2 rounded-2xl",
                     column.className
                   )}
                 >
