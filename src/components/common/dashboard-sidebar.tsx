@@ -19,6 +19,8 @@ import {
   SidebarMenuItem,
   SidebarMenuButton,
   SidebarFooter,
+  SidebarTrigger,
+  useSidebar,
 } from "@/components/ui/sidebar";
 import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
@@ -26,20 +28,21 @@ import LogoutModal from "./logout-modal";
 import { useState } from "react";
 
 // import { logout } from "@/service/authService";
-
 export default function DashboardSidebar() {
+  return <DashboardSidebarContent />;
+}
+
+function DashboardSidebarContent() {
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
+  const { state } = useSidebar();
 
   const handleLogout = async () => {
     // Perform logout actions here (clear tokens, etc.)
     // Redirect to login page
-
     // await logout();
-
     // localStorage.removeItem("accessToken");
-
     router.push("/signin");
   };
 
@@ -54,68 +57,97 @@ export default function DashboardSidebar() {
     return null;
   }
 
+  const isCollapsed = state === "collapsed";
+
   return (
     <>
-      <div className="!bg-[#F2F6FF] md:!bg-[#F2F6FF]">
-        <Sidebar className="border-r-0 border-transparent fixed left-0 h-full z-30 !bg-[#F2F6FF] md:!bg-transparent">
-          <SidebarContent>
-            <Link
-              href="/"
-              className="flex items-center justify-center gap-2 px-4 py-6"
-            >
+      {/* Mobile menu button */}
+      <div className="fixed top-4 left-4 z-40 md:hidden">
+        <SidebarTrigger />
+      </div>
+      <Sidebar
+        className="border-r-0 border-transparent !bg-[#F2F6FF]"
+        collapsible="icon"
+      >
+        <SidebarContent>
+          <div
+            className={`flex items-center justify-center px-4 py-6 relative ${
+              isCollapsed ? "px-2" : "gap-2"
+            }`}
+          >
+            <Link href="/">
               <Image
                 src="/image.png"
                 alt="logo"
-                width={140}
-                height={140}
-                className="h-20 w-20 rounded-md object-cover"
+                width={isCollapsed ? 40 : 140}
+                height={isCollapsed ? 40 : 140}
+                className={isCollapsed ? "hidden" : "h-7 w-24"}
               />
             </Link>
+            {/* Collapse button for desktop */}
+            <div
+              className={`absolute top-1 hidden md:block ${
+                isCollapsed ? "right-0" : "right-0"
+              }`}
+            >
+              <SidebarTrigger />
+            </div>
+          </div>
 
-            <SidebarMenu className="px-6 space-y-6">
-              <NavItem
-                href="/"
-                icon={LayoutDashboard}
-                label="Dashboard"
-                active={pathname === "/"}
-              />
-              <NavItem
-                href="/users"
-                icon={Users}
-                label="Users"
-                active={pathname === "/users" || pathname.startsWith("/users")}
-              />
+          <SidebarMenu
+            className={
+              isCollapsed ? "px-2 space-y-2 items-center" : "px-6 space-y-6"
+            }
+          >
+            <NavItem
+              href="/"
+              icon={LayoutDashboard}
+              label="Dashboard"
+              active={pathname === "/"}
+              collapsed={isCollapsed}
+            />
+            <NavItem
+              href="/users"
+              icon={Users}
+              label="Users"
+              active={pathname === "/users" || pathname.startsWith("/users")}
+              collapsed={isCollapsed}
+            />
 
-              <NavItem
-                href="/skinCondition"
-                icon={StrikethroughIcon}
-                label="Skin Condition"
-                active={
-                  pathname === "/skinCondition" ||
-                  pathname.startsWith("/skinCondition")
-                }
-              />
-              <NavItem
-                href="/uploadProduct"
-                icon={StrikethroughIcon}
-                label="Upload Product"
-                active={
-                  pathname === "/uploadProduct" ||
-                  pathname.startsWith("/uploadProduct")
-                }
-              />
+            <NavItem
+              href="/skinCondition"
+              icon={StrikethroughIcon}
+              label="Skin Condition"
+              active={
+                pathname === "/skinCondition" ||
+                pathname.startsWith("/skinCondition")
+              }
+              collapsed={isCollapsed}
+            />
+            <NavItem
+              href="/uploadProduct"
+              icon={StrikethroughIcon}
+              label="Upload Product"
+              active={
+                pathname === "/uploadProduct" ||
+                pathname.startsWith("/uploadProduct")
+              }
+              collapsed={isCollapsed}
+            />
 
-              <NavItem
-                href="/setting"
-                icon={Settings}
-                label="Setting"
-                active={
-                  pathname === "/setting" || pathname.startsWith("/setting/")
-                }
-              />
-            </SidebarMenu>
-          </SidebarContent>
+            <NavItem
+              href="/setting"
+              icon={Settings}
+              label="Setting"
+              active={
+                pathname === "/setting" || pathname.startsWith("/setting/")
+              }
+              collapsed={isCollapsed}
+            />
+          </SidebarMenu>
+        </SidebarContent>
 
+        {!isCollapsed && (
           <SidebarFooter className="p-6">
             <button
               onClick={() => setIsLogoutModalOpen(true)}
@@ -156,43 +188,57 @@ export default function DashboardSidebar() {
               </span>
             </button>
           </SidebarFooter>
-        </Sidebar>
-        <LogoutModal
-          isOpen={isLogoutModalOpen}
-          onClose={() => setIsLogoutModalOpen(false)}
-          onConfirm={handleLogout}
-        />
-      </div>
+        )}
+      </Sidebar>
+      <LogoutModal
+        isOpen={isLogoutModalOpen}
+        onClose={() => setIsLogoutModalOpen(false)}
+        onConfirm={handleLogout}
+      />
     </>
   );
 }
+
+// ...existing code...
 
 interface NavItemProps {
   href: string;
   icon: React.ElementType;
   label: string;
   active: boolean;
+  collapsed?: boolean;
 }
 
-function NavItem({ href, icon: Icon, label, active }: NavItemProps) {
+function NavItem({
+  href,
+  icon: Icon,
+  label,
+  active,
+  collapsed = false,
+}: NavItemProps) {
   return (
     <SidebarMenuItem>
       <SidebarMenuButton asChild>
         <Link
           href={href}
           className={cn(
-            "flex items-center gap-3 px-4 !py-5 transition-colors rounded-full",
+            collapsed
+              ? "flex items-center justify-center px-2 py-3 transition-colors rounded-full w-12 h-12 mx-auto"
+              : "flex items-center gap-3 px-4 !py-5 transition-colors rounded-full",
             active
               ? "bg-gradient-to-br from-blue-600 via-blue-500 to-teal-400 text-white"
               : "hover:bg-gradient-to-br hover:from-blue-600 hover:via-blue-500 hover:to-teal-400 hover:text-white"
           )}
         >
-          <Icon size={18} />
-          <span className={`text-lg ${active ? "text-secondary" : ""}`}>
-            {label}
-          </span>
+          <Icon size={collapsed ? 20 : 18} />
+          {!collapsed && (
+            <span className={`text-lg ${active ? "text-secondary" : ""}`}>
+              {label}
+            </span>
+          )}
         </Link>
       </SidebarMenuButton>
     </SidebarMenuItem>
   );
 }
+// ...existing code...

@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
-import { SidebarProvider } from "@/components/ui/sidebar";
+import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import DashboardSidebar from "@/components/common/dashboard-sidebar";
 
 const geistSans = Geist({
@@ -34,10 +34,12 @@ export default function RootLayout({
       >
         <Toaster position="top-center" reverseOrder={false} />
         <SidebarProvider>
-          <div className="flex min-h-screen bg-background2 w-full">
-            <DashboardSidebar />
-            <div className="flex-1 w-full bg-background2">{children}</div>
-          </div>
+          <DashboardSidebar />
+          <SidebarInset>
+            <div className="flex-1 w-full bg-background2 p-4 md:p-6">
+              {children}
+            </div>
+          </SidebarInset>
         </SidebarProvider>
       </body>
     </html>
