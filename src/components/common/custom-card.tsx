@@ -1,6 +1,7 @@
 /** @format */
 
 import React from "react";
+import { TrendingUp, TrendingDown, Minus } from "lucide-react";
 
 interface CardProps {
   title: string;
@@ -11,6 +12,7 @@ interface CardProps {
     percentage: number;
     period: string;
   };
+  showIcon?: boolean;
   className?: string;
 }
 
@@ -20,6 +22,7 @@ const CustomCard: React.FC<CardProps> = ({
   dollar,
   value,
   growth,
+  showIcon = true,
   className = "",
 }) => {
   const formatValue = (val: string | number): string => {
@@ -35,10 +38,10 @@ const CustomCard: React.FC<CardProps> = ({
     return "text-gray-500";
   };
 
-  const getGrowthIcon = (percentage: number): string => {
-    if (percentage > 0) return "📈";
-    if (percentage < 0) return "📉";
-    return "➡️";
+  const getGrowthIcon = (percentage: number): React.ReactElement => {
+    if (percentage > 0) return <TrendingUp size={16} />;
+    if (percentage < 0) return <TrendingDown size={16} />;
+    return <Minus size={16} />;
   };
 
   return (
@@ -48,13 +51,15 @@ const CustomCard: React.FC<CardProps> = ({
       {/* Header with title and icon */}
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-primary font-medium text-xl">{title}</h3>
-        <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">
-          {icon && (
-            <span className="text-primary text-sm">
-              {React.createElement(icon, { size: 18 })}
-            </span>
-          )}
-        </div>
+        {showIcon && (
+          <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">
+            {icon && (
+              <span className="text-primary text-sm">
+                {React.createElement(icon, { size: 18 })}
+              </span>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Main value */}
@@ -71,11 +76,13 @@ const CustomCard: React.FC<CardProps> = ({
         {/* Growth indicator (optional) */}
         {growth && (
           <div
-            className={`flex items-center gap-1 mt-2 ${getGrowthColor(
+            className={`flex items-center gap-2 mt-2 ${getGrowthColor(
               growth.percentage
             )}`}
           >
-            <span className="text-lg">{getGrowthIcon(growth.percentage)}</span>
+            <span className="flex items-center">
+              {getGrowthIcon(growth.percentage)}
+            </span>
             <span className="font-medium text-sm">
               {Math.abs(growth.percentage)}% growth of {growth.period}
             </span>

@@ -67,7 +67,7 @@ const OverView = () => {
       </div>
 
       {/* User Table */}
-      <div className="overflow-x-auto">
+      <div>
         <CustomTable
           title="User List"
           columns={userTableColumns}

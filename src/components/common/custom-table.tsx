@@ -143,8 +143,8 @@ const CustomTable: React.FC<CustomTableProps> = ({
     // Handle avatar with name
     if (column.key === "name" && typeof value === "object" && value !== null) {
       return (
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-full overflow-hidden bg-gray-200">
+        <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+          <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
             <Image
               src={value.avatar}
               alt={value.name}
@@ -153,7 +153,9 @@ const CustomTable: React.FC<CustomTableProps> = ({
               className="w-full h-full object-cover"
             />
           </div>
-          <span className="font-medium text-gray-900">{value.name}</span>
+          <span className="font-medium text-gray-900 truncate">
+            {value.name}
+          </span>
         </div>
       );
     }
@@ -163,7 +165,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
       return (
         <span
           className={cn(
-            "px-3 py-1 rounded-full text-sm font-medium",
+            "px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium",
             value === "Paid"
               ? "bg-green-100 text-green-700"
               : "bg-gray-100 text-gray-600"
@@ -179,7 +181,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
       return (
         <span
           className={cn(
-            "px-3 py-1 rounded-full text-sm font-medium",
+            "px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium",
             value === "Active"
               ? "bg-blue-100 text-blue-700"
               : "bg-gray-100 text-gray-500"
@@ -197,23 +199,23 @@ const CustomTable: React.FC<CustomTableProps> = ({
           <Button
             variant="ghost"
             size="sm"
-            className="text-gray-500 hover:text-gray-700"
+            className="text-gray-500 hover:text-gray-700 p-1 sm:p-2"
             onClick={() => {
               setSelectedUser(rowData);
               setShowUserModal(!showUserModal);
             }}
           >
-            <Eye size={16} className="mr-2" />
-            View
+            <Eye size={14} className="sm:mr-1 md:mr-2" />
+            <span className="hidden sm:inline">View</span>
           </Button>
 
           {/* User Details Dropdown Modal */}
           {showUserModal && selectedUser === rowData && (
-            <div className="absolute right-12 xl:right-24 top-full mt-2 w-96 bg-white border border-gray-200 rounded-xl shadow-lg z-50">
-              <div className="p-6">
+            <div className="absolute right-0 lg:right-12 xl:right-24 top-full mt-2 w-80 sm:w-96 bg-white border border-gray-200 rounded-xl shadow-lg z-50 max-w-[calc(100vw-2rem)]">
+              <div className="p-4 sm:p-6">
                 {/* User Info Header */}
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 rounded-full overflow-hidden bg-yellow-400 flex-shrink-0">
+                <div className="flex items-center gap-3 sm:gap-4 mb-4">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden bg-yellow-400 flex-shrink-0">
                     <Image
                       src={
                         typeof selectedUser.name === "object" &&
@@ -232,21 +234,21 @@ const CustomTable: React.FC<CustomTableProps> = ({
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <div className="flex-1">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-1">
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-1 truncate">
                       {typeof selectedUser.name === "object" &&
                       selectedUser.name
                         ? selectedUser.name.name
                         : "Unknown User"}
                     </h3>
-                    <p className="text-gray-600 text-sm">
+                    <p className="text-gray-600 text-xs sm:text-sm truncate">
                       {String(selectedUser.email || "")}
                     </p>
                   </div>
-                  <div className="flex flex-col gap-2">
+                  <div className="flex flex-col gap-1 sm:gap-2 flex-shrink-0">
                     <span
                       className={cn(
-                        "px-3 py-1 rounded text-xs font-medium text-center",
+                        "px-2 sm:px-3 py-1 rounded text-xs font-medium text-center",
                         selectedUser.status === "Active"
                           ? "bg-blue-100 text-blue-700"
                           : "bg-gray-100 text-gray-500"
@@ -256,7 +258,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
                     </span>
                     <span
                       className={cn(
-                        "px-3 py-1 rounded text-xs font-medium text-center",
+                        "px-2 sm:px-3 py-1 rounded text-xs font-medium text-center",
                         selectedUser.userType === "Paid"
                           ? "bg-green-100 text-green-700"
                           : "bg-gray-100 text-gray-600"
@@ -316,18 +318,29 @@ const CustomTable: React.FC<CustomTableProps> = ({
       return <span className="font-semibold text-gray-900">${value}</span>;
     }
 
+    // Handle email with truncation
+    if (column.key === "email" && typeof value === "string") {
+      return (
+        <span className="text-gray-600 truncate max-w-[150px] md:max-w-[200px] lg:max-w-none block">
+          {value}
+        </span>
+      );
+    }
+
     return String(value || "");
   };
 
   return (
     <div
-      className={`bg-white rounded-lg shadow-sm border border-gray-200 ${className}`}
+      className={`px-3 bg-white rounded-lg shadow-sm border border-gray-200 ${className}`}
     >
       {/* Header */}
-      <div className="flex items-center justify-between p-6 border-b border-gray-200">
-        <h2 className="text-xl font-semibold text-gray-900">{title}</h2>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between p-4 sm:p-6 border-b border-gray-200 gap-4">
+        <h2 className="text-lg sm:text-xl font-semibold text-gray-900">
+          {title}
+        </h2>
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
           {searchable && (
             <div className="relative">
               <Search
@@ -338,7 +351,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
                 placeholder="Search by name..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 pr-4 py-2 w-64 border-gray-300 bg-gray-100 rounded-lg"
+                className="pl-10 pr-4 py-2 w-full sm:w-48 md:w-64 border-gray-300 bg-gray-100 rounded-lg"
               />
             </div>
           )}
@@ -347,10 +360,10 @@ const CustomTable: React.FC<CustomTableProps> = ({
             <div className="relative filter-dropdown">
               <Button
                 variant="outline"
-                className="flex items-center gap-2 bg-gray-100"
+                className="flex items-center justify-center gap-2 bg-gray-100 w-full sm:w-auto"
                 onClick={() => setShowFilter(!showFilter)}
               >
-                <PiSlidersHorizontalThin size={25} />
+                <PiSlidersHorizontalThin size={20} />
                 Filter
               </Button>
 
@@ -390,7 +403,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
       </div>
 
       {/* Table */}
-      <div className="overflow-x-auto">
+      <div className="w-full">
         <Table>
           <TableHeader className="border-none gap-2 bg-transparent">
             <TableRow className="bg-transparent border-none">
@@ -398,7 +411,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
                 <TableHead
                   key={column.key}
                   className={cn(
-                    "font-semibold text-gray-700 py-2 px-6 bg-gray-100 gap-2 ",
+                    "font-semibold text-gray-700 py-2 px-1 sm:px-2 md:px-3 lg:px-6 bg-gray-100 gap-2 text-xs sm:text-sm",
                     column.className
                   )}
                 >
@@ -416,7 +429,10 @@ const CustomTable: React.FC<CustomTableProps> = ({
                 {columns.map((column) => (
                   <TableCell
                     key={column.key}
-                    className={cn("py-4 px-6", column.className)}
+                    className={cn(
+                      "py-3 sm:py-4 px-1 sm:px-2 md:px-3 lg:px-6 text-xs sm:text-sm",
+                      column.className
+                    )}
                   >
                     {renderCellContent(row[column.key], column, row)}
                   </TableCell>
@@ -436,7 +452,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
 
       {/* Pagination */}
       {totalPages > 1 && (
-        <div className="flex items-center justify-between px-6 py-4 border-t border-gray-200">
+        <div className="flex flex-col sm:flex-row items-center justify-between px-4 sm:px-6 py-4 border-t border-gray-200 gap-4">
           <Pagination>
             <PaginationContent>
               <PaginationItem>
@@ -512,7 +528,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
         </div>
       )}
       <div className="w-full flex justify-end pr-4 pb-3">
-        <div className="text-base text-gray-700">
+        <div className="text-xs sm:text-sm md:text-base text-gray-700">
           Showing {startIndex + 1} to {Math.min(endIndex, filteredData.length)}{" "}
           of {filteredData.length} results
         </div>
