@@ -53,7 +53,7 @@ const OverView = () => {
       <h1 className="text-2xl font-bold text-gray-900 mb-6">Overview</h1>
 
       {/* Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 ">
         {cardData.map((card, index) => (
           <CustomCard
             key={index}
@@ -67,14 +67,16 @@ const OverView = () => {
       </div>
 
       {/* User Table */}
-      <CustomTable
-        title="User List"
-        columns={userTableColumns}
-        data={userTableData}
-        searchable={true}
-        filterable={true}
-        className="mt-8"
-      />
+      <div className="overflow-x-auto">
+        <CustomTable
+          title="User List"
+          columns={userTableColumns}
+          data={userTableData}
+          searchable={true}
+          filterable={true}
+          className="mt-8"
+        />
+      </div>
     </div>
   );
 };

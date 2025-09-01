@@ -7,6 +7,8 @@ export const userTableData = [
     userType: "Free",
     email: "deanna.curtis@example.com",
     status: "Inactive",
+    issueDate: "2024-01-15",
+    amount: 25,
     action: "view",
   },
   {
@@ -15,6 +17,8 @@ export const userTableData = [
     userType: "Paid",
     email: "michelle.rivera@example.com",
     status: "Active",
+    issueDate: "2024-02-20",
+    amount: 150,
     action: "view",
   },
   {
@@ -23,6 +27,8 @@ export const userTableData = [
     userType: "Free",
     email: "felicia.reid@example.com",
     status: "Inactive",
+    issueDate: "2024-01-08",
+    amount: 35,
     action: "view",
   },
   {
@@ -31,6 +37,8 @@ export const userTableData = [
     userType: "Paid",
     email: "curtis.weaver@example.com",
     status: "Active",
+    issueDate: "2024-03-12",
+    amount: 200,
     action: "view",
   },
   {
@@ -39,6 +47,8 @@ export const userTableData = [
     userType: "Paid",
     email: "michael.mitc@example.com",
     status: "Inactive",
+    issueDate: "2024-01-25",
+    amount: 120,
     action: "view",
   },
   {
@@ -47,6 +57,8 @@ export const userTableData = [
     userType: "Free",
     email: "willie.jennings@example.com",
     status: "Active",
+    issueDate: "2024-02-10",
+    amount: 40,
     action: "view",
   },
   {
@@ -55,6 +67,8 @@ export const userTableData = [
     userType: "Paid",
     email: "deanna.curtis@example.com",
     status: "Active",
+    issueDate: "2024-03-05",
+    amount: 180,
     action: "view",
   },
   {
@@ -63,6 +77,8 @@ export const userTableData = [
     userType: "Free",
     email: "sarah.johnson@example.com",
     status: "Active",
+    issueDate: "2024-01-30",
+    amount: 30,
     action: "view",
   },
   {
@@ -71,6 +87,8 @@ export const userTableData = [
     userType: "Paid",
     email: "david.chen@example.com",
     status: "Active",
+    issueDate: "2024-02-28",
+    amount: 220,
     action: "view",
   },
   {
@@ -79,6 +97,8 @@ export const userTableData = [
     userType: "Free",
     email: "emily.rodriguez@example.com",
     status: "Inactive",
+    issueDate: "2024-01-18",
+    amount: 45,
     action: "view",
   },
   {
@@ -87,6 +107,8 @@ export const userTableData = [
     userType: "Paid",
     email: "michael.brown@example.com",
     status: "Active",
+    issueDate: "2024-03-15",
+    amount: 175,
     action: "view",
   },
   {
@@ -95,6 +117,8 @@ export const userTableData = [
     userType: "Free",
     email: "jessica.wilson@example.com",
     status: "Active",
+    issueDate: "2024-02-05",
+    amount: 50,
     action: "view",
   },
   {
@@ -103,6 +127,8 @@ export const userTableData = [
     userType: "Paid",
     email: "robert.garcia@example.com",
     status: "Inactive",
+    issueDate: "2024-01-22",
+    amount: 160,
     action: "view",
   },
   {
@@ -111,6 +137,8 @@ export const userTableData = [
     userType: "Free",
     email: "amanda.davis@example.com",
     status: "Active",
+    issueDate: "2024-02-18",
+    amount: 35,
     action: "view",
   },
   {
@@ -119,6 +147,8 @@ export const userTableData = [
     userType: "Paid",
     email: "christopher.lee@example.com",
     status: "Active",
+    issueDate: "2024-03-08",
+    amount: 190,
     action: "view",
   },
   {
@@ -127,6 +157,8 @@ export const userTableData = [
     userType: "Free",
     email: "lisa.martinez@example.com",
     status: "Inactive",
+    issueDate: "2024-01-12",
+    amount: 28,
     action: "view",
   },
   {
@@ -135,6 +167,8 @@ export const userTableData = [
     userType: "Paid",
     email: "james.taylor@example.com",
     status: "Active",
+    issueDate: "2024-02-25",
+    amount: 210,
     action: "view",
   },
   {
@@ -143,6 +177,8 @@ export const userTableData = [
     userType: "Free",
     email: "rachel.anderson@example.com",
     status: "Active",
+    issueDate: "2024-02-12",
+    amount: 42,
     action: "view",
   },
   {
@@ -151,6 +187,8 @@ export const userTableData = [
     userType: "Paid",
     email: "daniel.thompson@example.com",
     status: "Inactive",
+    issueDate: "2024-01-28",
+    amount: 145,
     action: "view",
   },
   {
@@ -159,6 +197,8 @@ export const userTableData = [
     userType: "Free",
     email: "nicole.white@example.com",
     status: "Active",
+    issueDate: "2024-03-02",
+    amount: 38,
     action: "view",
   },
   {
@@ -167,6 +207,8 @@ export const userTableData = [
     userType: "Paid",
     email: "kevin.harris@example.com",
     status: "Active",
+    issueDate: "2024-03-18",
+    amount: 230,
     action: "view",
   },
   {
@@ -175,6 +217,8 @@ export const userTableData = [
     userType: "Free",
     email: "stephanie.clark@example.com",
     status: "Inactive",
+    issueDate: "2024-01-05",
+    amount: 32,
     action: "view",
   },
 ];

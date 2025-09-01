@@ -56,6 +56,8 @@ const CustomTable: React.FC<CustomTableProps> = ({
   const [currentPage, setCurrentPage] = useState(1);
   const [showFilter, setShowFilter] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState<string>("all");
+  const [selectedUser, setSelectedUser] = useState<TableData | null>(null);
+  const [showUserModal, setShowUserModal] = useState(false);
   const itemsPerPage = 15;
 
   // Filter options based on the image
@@ -122,17 +124,21 @@ const CustomTable: React.FC<CustomTableProps> = ({
       if (showFilter && !target.closest(".filter-dropdown")) {
         setShowFilter(false);
       }
+      if (showUserModal && !target.closest(".user-modal-dropdown")) {
+        setShowUserModal(false);
+      }
     };
 
     document.addEventListener("click", handleClickOutside);
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };
-  }, [showFilter]);
+  }, [showFilter, showUserModal]);
 
   const renderCellContent = (
     value: string | number | { name: string; avatar: string } | undefined,
-    column: TableColumn
+    column: TableColumn,
+    rowData?: TableData
   ): React.ReactNode => {
     // Handle avatar with name
     if (column.key === "name" && typeof value === "object" && value !== null) {
@@ -185,16 +191,120 @@ const CustomTable: React.FC<CustomTableProps> = ({
     }
 
     // Handle action buttons
-    if (column.key === "action") {
+    if (column.key === "action" && rowData) {
       return (
-        <Button
-          variant="ghost"
-          size="sm"
-          className="text-gray-500 hover:text-gray-700"
-        >
-          <Eye size={16} className="mr-2" />
-          View
-        </Button>
+        <div className="relative user-modal-dropdown">
+          <Button
+            variant="ghost"
+            size="sm"
+            className="text-gray-500 hover:text-gray-700"
+            onClick={() => {
+              setSelectedUser(rowData);
+              setShowUserModal(!showUserModal);
+            }}
+          >
+            <Eye size={16} className="mr-2" />
+            View
+          </Button>
+
+          {/* User Details Dropdown Modal */}
+          {showUserModal && selectedUser === rowData && (
+            <div className="absolute right-12 xl:right-24 top-full mt-2 w-96 bg-white border border-gray-200 rounded-xl shadow-lg z-50">
+              <div className="p-6">
+                {/* User Info Header */}
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-12 h-12 rounded-full overflow-hidden bg-yellow-400 flex-shrink-0">
+                    <Image
+                      src={
+                        typeof selectedUser.name === "object" &&
+                        selectedUser.name
+                          ? selectedUser.name.avatar
+                          : "/profile-img.jpg"
+                      }
+                      alt={
+                        typeof selectedUser.name === "object" &&
+                        selectedUser.name
+                          ? selectedUser.name.name
+                          : "User"
+                      }
+                      width={48}
+                      height={48}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-1">
+                      {typeof selectedUser.name === "object" &&
+                      selectedUser.name
+                        ? selectedUser.name.name
+                        : "Unknown User"}
+                    </h3>
+                    <p className="text-gray-600 text-sm">
+                      {String(selectedUser.email || "")}
+                    </p>
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <span
+                      className={cn(
+                        "px-3 py-1 rounded text-xs font-medium text-center",
+                        selectedUser.status === "Active"
+                          ? "bg-blue-100 text-blue-700"
+                          : "bg-gray-100 text-gray-500"
+                      )}
+                    >
+                      {String(selectedUser.status || "")}
+                    </span>
+                    <span
+                      className={cn(
+                        "px-3 py-1 rounded text-xs font-medium text-center",
+                        selectedUser.userType === "Paid"
+                          ? "bg-green-100 text-green-700"
+                          : "bg-gray-100 text-gray-600"
+                      )}
+                    >
+                      {String(selectedUser.userType || "")}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Purchase Details Section */}
+                <div>
+                  <h4 className="text-base font-semibold text-gray-700 mb-3">
+                    Purchase Details
+                  </h4>
+                  <div className="bg-gray-50 rounded-lg p-3">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <span className="text-sm text-gray-500 font-medium block mb-1">
+                          Issue Date
+                        </span>
+                        <span className="text-sm text-gray-700">
+                          {selectedUser.issueDate
+                            ? new Date(
+                                selectedUser.issueDate as string
+                              ).toLocaleDateString("en-US", {
+                                month: "2-digit",
+                                day: "2-digit",
+                                year: "numeric",
+                              })
+                            : "N/A"}
+                        </span>
+                      </div>
+                      <div>
+                        <span className="text-sm text-gray-500 font-medium block mb-1">
+                          Amount
+                        </span>
+                        <span className="text-lg font-bold text-purple-600">
+                          ${String(selectedUser.amount || "0")}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
       );
     }
 
@@ -308,7 +418,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
                     key={column.key}
                     className={cn("py-4 px-6", column.className)}
                   >
-                    {renderCellContent(row[column.key], column)}
+                    {renderCellContent(row[column.key], column, row)}
                   </TableCell>
                 ))}
               </TableRow>
