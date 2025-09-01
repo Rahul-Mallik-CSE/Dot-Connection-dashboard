@@ -191,13 +191,13 @@ const CustomTable: React.FC<CustomTableProps> = ({
       {/* Table */}
       <div className="overflow-x-auto">
         <Table>
-          <TableHeader>
-            <TableRow className="bg-transparent">
+          <TableHeader className="border-none gap-2 bg-transparent">
+            <TableRow className="bg-transparent border-none">
               {columns.map((column) => (
                 <TableHead
                   key={column.key}
                   className={cn(
-                    "font-semibold text-gray-700 py-2 px-6 bg-gray-50 gap-2 rounded-2xl",
+                    "font-semibold text-gray-700 py-2 px-6 bg-gray-50 gap-2 ",
                     column.className
                   )}
                 >
