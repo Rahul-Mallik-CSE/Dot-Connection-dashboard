@@ -23,6 +23,7 @@ import { Search, Filter, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import { PiSlidersHorizontalThin } from "react-icons/pi";
 
 interface TableColumn {
   key: string;
@@ -174,14 +175,14 @@ const CustomTable: React.FC<CustomTableProps> = ({
                 placeholder="Search..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 pr-4 py-2 w-64 border-gray-300 rounded-lg"
+                className="pl-10 pr-4 py-2 w-64 border-gray-300 bg-gray-100 rounded-lg"
               />
             </div>
           )}
 
           {filterable && (
             <Button variant="outline" className="flex items-center gap-2">
-              <Filter size={16} />
+              <PiSlidersHorizontalThin size={25} />
               Filter
             </Button>
           )}
@@ -197,7 +198,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
                 <TableHead
                   key={column.key}
                   className={cn(
-                    "font-semibold text-gray-700 py-2 px-6 bg-gray-50 gap-2 ",
+                    "font-semibold text-gray-700 py-2 px-6 bg-gray-100 gap-2 ",
                     column.className
                   )}
                 >
