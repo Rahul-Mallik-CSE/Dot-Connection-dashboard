@@ -107,7 +107,7 @@ const PackagePage = () => {
 
                   <div className="space-y-2 mt-0">
                     {/* Title and Base Price */}
-                    <div className="flex ">
+                    <div className="flex gap-2 ">
                       <div className="flex-1">
                         <label className="block text-sm md:text-base font-medium mb-2">
                           Title
