@@ -77,13 +77,23 @@ function DashboardSidebarContent() {
             }`}
           >
             <Link href="/">
-              <Image
-                src="/image.png"
-                alt="logo"
-                width={isCollapsed ? 40 : 140}
-                height={isCollapsed ? 40 : 140}
-                className={isCollapsed ? "hidden" : "h-7 w-18"}
-              />
+              {isCollapsed ? (
+                <Image
+                  src="/logo2.png"
+                  alt="logo"
+                  width={isCollapsed ? 40 : 140}
+                  height={isCollapsed ? 40 : 140}
+                  className={"h-5 w-5"}
+                />
+              ) : (
+                <Image
+                  src="/image.png"
+                  alt="logo"
+                  width={isCollapsed ? 40 : 140}
+                  height={isCollapsed ? 40 : 140}
+                  className={"h-8 w-24"}
+                />
+              )}
             </Link>
             {/* Collapse button for desktop */}
             <div
