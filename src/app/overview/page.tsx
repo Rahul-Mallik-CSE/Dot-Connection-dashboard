@@ -11,6 +11,8 @@ import {
   ShieldUser,
 } from "lucide-react";
 
+import { userTableData } from "@/redux/data";
+
 const cardData = [
   {
     title: "Total User",
@@ -43,65 +45,6 @@ const userTableColumns = [
   { key: "email", header: "Email" },
   { key: "status", header: "Status" },
   { key: "action", header: "Action" },
-];
-
-const userTableData = [
-  {
-    id: "S5W4",
-    name: { name: "Kristin Watson", avatar: "/api/placeholder/32/32" },
-    userType: "Free",
-    email: "deanna.curtis@example.com",
-    status: "Inactive",
-    action: "view",
-  },
-  {
-    id: "F41H",
-    name: { name: "Marvin McKinney", avatar: "/api/placeholder/32/32" },
-    userType: "Paid",
-    email: "michelle.rivera@example.com",
-    status: "Active",
-    action: "view",
-  },
-  {
-    id: "GR41",
-    name: { name: "Eleanor Pena", avatar: "/api/placeholder/32/32" },
-    userType: "Free",
-    email: "felicia.reid@example.com",
-    status: "Inactive",
-    action: "view",
-  },
-  {
-    id: "F41H",
-    name: { name: "Marvin McKinney", avatar: "/api/placeholder/32/32" },
-    userType: "Paid",
-    email: "curtis.weaver@example.com",
-    status: "Active",
-    action: "view",
-  },
-  {
-    id: "S5W4",
-    name: { name: "Kristin Watson", avatar: "/api/placeholder/32/32" },
-    userType: "Paid",
-    email: "michael.mitc@example.com",
-    status: "Inactive",
-    action: "view",
-  },
-  {
-    id: "F41H",
-    name: { name: "Eleanor Pena", avatar: "/api/placeholder/32/32" },
-    userType: "Free",
-    email: "willie.jennings@example.com",
-    status: "Active",
-    action: "view",
-  },
-  {
-    id: "GR41",
-    name: { name: "Marvin McKinney", avatar: "/api/placeholder/32/32" },
-    userType: "Paid",
-    email: "deanna.curtis@example.com",
-    status: "Active",
-    action: "view",
-  },
 ];
 
 const OverView = () => {
