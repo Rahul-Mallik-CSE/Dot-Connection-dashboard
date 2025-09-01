@@ -58,7 +58,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
   const [selectedFilter, setSelectedFilter] = useState<string>("all");
   const [selectedUser, setSelectedUser] = useState<TableData | null>(null);
   const [showUserModal, setShowUserModal] = useState(false);
-  const itemsPerPage = 15;
+  const itemsPerPage = 10;
 
   // Filter options based on the image
   const filterOptions = [
